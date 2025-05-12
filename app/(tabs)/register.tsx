@@ -1,6 +1,6 @@
 import { Button } from '@react-navigation/elements'
 import { Stack, useRouter } from 'expo-router'
-import React from 'react'
+import React, { useState } from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
@@ -9,6 +9,9 @@ const router = useRouter();
 
 
 export default function login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View style={style.container}>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -24,17 +27,27 @@ export default function login() {
         </Text>
 
         <TextInput 
-        style={style.email}
-        value='E-Mail'
+          style={style.email}
+          placeholder='E-Mail'
+          value={email}
+          placeholderTextColor="#000"
+          onChangeText={setEmail}
         />
 
         <TextInput 
-        style={style.password}
-        value='Password'
+          style={style.password}
+          placeholder='Password'
+          secureTextEntry
+          placeholderTextColor="#000"
+          value={password}
+          onChangeText={setPassword}
         />
 
-        <Button style={style.loginButton}>
-        Register
+        <Button 
+          style={style.loginButton}
+          onPress={() => router.push({ pathname: '/(tabs)/register_2', params: { email, password } })}
+        >
+          Register
         </Button>
         <Text style={style.registerTextButton} onPress={() => router.push('/(tabs)/login')}> 
         Already got an account?
@@ -95,6 +108,7 @@ const style = StyleSheet.create({
     color: 'black',
     padding: 12,
     borderRadius: 12
+
   },
   loginButton: {
     alignSelf: 'center'

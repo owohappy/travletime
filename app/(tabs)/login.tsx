@@ -1,5 +1,5 @@
 import { Button } from '@react-navigation/elements'
-import { Stack, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import React from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
@@ -10,7 +10,6 @@ const router = useRouter();
 export default function login() {
   return (
     <View style={style.container}>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <View style={[style.boxForground, { backgroundColor:  '#ffffff' }]}>
         <Text 
         style={style.welcomeText}>
@@ -32,7 +31,7 @@ export default function login() {
         value='Password'
         />
 
-        <Button style={style.loginButton}>
+        <Button style={style.loginButton} onPress={() => router.push('/(tabs)/dashboard')}>
         Login
         </Button>
         <Text style={style.registerTextButton} onPress={() => router.push('/(tabs)/register')}> 

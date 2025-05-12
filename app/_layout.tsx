@@ -1,6 +1,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -12,16 +13,24 @@ export default function RootLayout() {
   });
 
   if (!loaded) {
-    // Async font loading only occurs in development.
     return null;
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)/index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/login" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/register" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/register_2" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/giftcards" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/tickets" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/tracking" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/dashboard" options={{ headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

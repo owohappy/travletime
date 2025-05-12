@@ -1,5 +1,5 @@
 import { Button } from '@react-navigation/elements';
-import { Stack, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
@@ -10,11 +10,12 @@ const router = useRouter();
 export default function index() {
   return (
     <View style={style.container}>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <View style={style.boxForground}> 
         <Text style={style.welcomeText}>Don't waste time</Text>
         <Text style={style.bottomText}>Earn points whilest being on any means of public transport </Text>
-        <Button style={style.continueButton} onPress={() => router.push('/(tabs)/register')}> </Button>
+        <Button style={style.continueButton} onPress={() => router.push('/(tabs)/register')}> 
+         a
+        </Button>
       </View>
 
     </View>
@@ -72,6 +73,10 @@ const style = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     top: screenHeight / 4,
+    fontSize: 48
+  },
+  arrowButton: {
+    fontSize: 120
   }
 }
 )

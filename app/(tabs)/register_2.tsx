@@ -8,7 +8,30 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const router = useRouter();
+const apiURL = 'http://localhost:8000'; // Replace with your actual API URL
 
+const registerUser = (email: string, password: string, name: string, lastName: string, phone: string) => {
+  return fetch(`${apiURL}/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      name: name,
+      lastName: lastName,
+      phone: phone,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      return json.movies;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
 
 export default function register_2() {
     
@@ -73,7 +96,7 @@ export default function register_2() {
         maxLength={20}
       />
 
-        <Button style={style.loginButton} onPress={() => router.push('/(tabs)/dashboard')}>
+        <Button style={style.loginButton} onPress={() => registerUser(email as string, password as string, name, lastName, phone)}>
         Register
         </Button>
         <Text style={style.registerTextButton} onPress={() => router.push('/(tabs)/login')}> 

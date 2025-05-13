@@ -7,6 +7,9 @@ import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const router = useRouter();
+const apiURL = 'http://localhost:8000'; // Replace with your actual API URL
+
+
 
 
 // VARIABLES TO CHANGE FOR API

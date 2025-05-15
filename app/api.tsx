@@ -163,7 +163,8 @@ export const checkToken = async (): Promise<boolean> => {
       {}, // Sending null or an empty object as the body
       {
         params: {
-          access_token: token // Sending access_token as a query parameter
+          access_token: token,
+          userID: "0000" // Sending access_token as a query parameter
         }
       }
     );

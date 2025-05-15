@@ -73,7 +73,7 @@ const style = StyleSheet.create({
     flex: 1, 
     flexDirection: 'column',
     color: 'white',
-    backgroundColor: '#121212',
+    backgroundColor: '#38828f',
     justifyContent: 'flex-start'
   },
   welcomeText:{

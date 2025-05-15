@@ -3,42 +3,20 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
+import { register } from '../api'
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
-
+const address = "none";
 const router = useRouter();
-const apiURL = 'http://localhost:8000'; // Replace with your actual API URL
 
-const registerUser = (email: string, password: string, name: string, lastName: string, phone: string) => {
-  return fetch(`${apiURL}/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-      name: name,
-      lastName: lastName,
-      phone: phone,
-    }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      return json.movies;
-    })
-    .catch(error => {
-      console.error(error);
-    });
-};
 
 export default function register_2() {
     
     const { email, password } = useLocalSearchParams();
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phonenumber, setPhone] = useState('');
     const [error, setError] = useState('');
 
     const handlePhoneChange = (text: string) => {
@@ -88,7 +66,7 @@ export default function register_2() {
 
         <TextInput
         style={[style.input, error ? style.inputError : null]}
-        value={phone}
+        value={phonenumber}
         onChangeText={handlePhoneChange}
         placeholderTextColor="#000"
         placeholder="+1234567890"
@@ -96,7 +74,7 @@ export default function register_2() {
         maxLength={20}
       />
 
-        <Button style={style.loginButton} onPress={() => registerUser(email as string, password as string, name, lastName, phone)}>
+        <Button style={style.loginButton} onPress={() => register({ email: email as string, password: password as string, name: String(name + " " + lastName), phonenumber, address})}>
         Register
         </Button>
         <Text style={style.registerTextButton} onPress={() => router.push('/(tabs)/login')}> 
@@ -122,7 +100,7 @@ const style = StyleSheet.create({
     flex: 1, 
     flexDirection: 'column',
     color: 'white',
-    backgroundColor: '#121212',
+    backgroundColor: '#38828f',
     justifyContent: 'flex-start'
   },
   welcomeText:{

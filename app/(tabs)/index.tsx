@@ -1,20 +1,31 @@
+import { AntDesign } from '@expo/vector-icons';
 import { Button } from '@react-navigation/elements';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { checkToken } from '../api';
 
 const screenHeight = Dimensions.get('window').height;
 const router = useRouter();
 
 
 export default function index() {
+  React.useEffect(() => {
+    const verifyToken = async () => {
+      const tokenValid = await checkToken();
+      if (tokenValid === true) {
+        router.push('/(tabs)/dashboard');
+      }
+    };
+    verifyToken();
+  }, []);
   return (
     <View style={style.container}>
       <View style={style.boxForground}> 
         <Text style={style.welcomeText}>Don't waste time</Text>
         <Text style={style.bottomText}>Earn points whilest being on any means of public transport </Text>
         <Button style={style.continueButton} onPress={() => router.push('/(tabs)/register')}> 
-         a
+         <AntDesign name="arrowright" style={style.arrowButton} />
         </Button>
       </View>
 
@@ -39,7 +50,7 @@ const style = StyleSheet.create({
     flex: 1, 
     flexDirection: 'column',
     color: 'white',
-    backgroundColor: '#121212',
+    backgroundColor: '#38828f',
     justifyContent: 'flex-start'
   },
   welcomeText:
@@ -76,7 +87,13 @@ const style = StyleSheet.create({
     fontSize: 48
   },
   arrowButton: {
-    fontSize: 120
+    alignSelf: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 16,
+    left: '-50%',
+    fontSize: 48,
+    color: 'black'
   }
 }
 )

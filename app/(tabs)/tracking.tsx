@@ -1,5 +1,6 @@
+import { AntDesign } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Line } from 'react-native-svg';
 
 const { width } = Dimensions.get('window');
@@ -41,8 +42,19 @@ export default function Tracking() {
   const minuteHand = getCoords(minuteAngle, RADIUS * 0.7);
   const secondHand = getCoords(secondAngle, RADIUS * 0.9);
 
+  function toggleDrawer(): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={toggleDrawer}>
+        <AntDesign name="menu-fold" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.clockView}>
+
       <Svg height={CLOCK_SIZE} width={CLOCK_SIZE}>
         {/* Outer Circle */}
         <Circle cx={CENTER} cy={CENTER} r={RADIUS} stroke="#333" strokeWidth="4" fill="#fff" />
@@ -66,11 +78,24 @@ export default function Tracking() {
         <Circle cx={CENTER} cy={CENTER} r={4} fill="#000" />
       </Svg>
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: '#121212',
+    paddingHorizontal: '5%',
+    paddingTop: 60,
+  },
+  header: {
+    marginTop: 20,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  clockView: {
     flex: 1,
     backgroundColor: '#121212',
     paddingHorizontal: '5%',

@@ -2,99 +2,121 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const { height: screenHeight, width: screenWidth } = Dimensions.get('window');
-const router = useRouter();
+const { width: screenWidth } = Dimensions.get('window');
 
-export default function giftcards() {
+const giftcardData = [
+  {
+    brand: 'Amazon',
+    cards: [
+      { amount: 5, route: '/(tabs)/giftcards' },
+      { amount: 10, route: '/(tabs)/tickets' },
+      { amount: 15, route: '/(tabs)/tickets' },
+      { amount: 20, route: '/(tabs)/tickets' },
+    ],
+  },
+  {
+    brand: 'Starbucks',
+    cards: [
+      { amount: 5, route: '/(tabs)/giftcards' },
+      { amount: 10, route: '/(tabs)/tickets' },
+    ],
+  },
+];
+
+export default function Giftcards() {
+  const router = useRouter();
+
   return (
-    <View style={style.container}>
-      <Text style={[style.containerLabel, {marginTop: 240}]}>Amazon</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={style.scrollContainer}
-      >
-        <TouchableOpacity onPress={() => router.push('/(tabs)/giftcards')}>
-          <View style={[style.card, { backgroundColor: '#D4D4F7' }]}>
-            <View style={[style.cardLabel, { backgroundColor: '#4e4e91' }]}>
-              <Text style={style.cardLabelText}>5$</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push('/(tabs)/tickets')}>
-          <View style={[style.card, { backgroundColor: '#D4D4F7' }]}>
-            <View style={[style.cardLabel, { backgroundColor: '#4e4e91' }]}>
-              <Text style={style.cardLabelText}>10$</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
-
-      <Text style={style.containerLabel}>Starbucks</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={style.scrollContainer}
-      >
-        <TouchableOpacity onPress={() => router.push('/(tabs)/giftcards')}>
-          <View style={[style.card, { backgroundColor: '#D4D4F7' }]}>
-            <View style={[style.cardLabel, { backgroundColor: '#4e4e91' }]}>
-              <Text style={style.cardLabelText}>5$</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push('/(tabs)/tickets')}>
-          <View style={[style.card, { backgroundColor: '#D4D4F7' }]}>
-            <View style={[style.cardLabel, { backgroundColor: '#4e4e91' }]}>
-              <Text style={style.cardLabelText}>10$</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+    <View style={styles.container}>
+      {giftcardData.map((brand, idx) => (
+        <View key={brand.brand}>
+          <Text style={[styles.containerLabel, idx === 0 && { marginTop: 120 }]}>{brand.brand}</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContainer}
+          >
+            {brand.cards.map((card, i) => (
+              <TouchableOpacity
+                key={card.amount}
+                onPress={() => router.push(card.route)}
+                activeOpacity={0.8}
+              >
+                <View style={[styles.card, { backgroundColor: '#D4D4F7' }]}>
+                  <View style={[styles.cardLabel, { backgroundColor: '#4e4e91' }]}>
+                    <Text style={styles.cardLabelText}>${card.amount}</Text>
+                  </View>
+                  <View style={styles.cardContent}>
+                    <Text style={styles.cardBrandText}>{brand.brand}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      ))}
     </View>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#121212',
     paddingHorizontal: '5%',
-    paddingVertical: '23%',
+    paddingTop: 60,
   },
   containerLabel: {
     fontSize: 22,
     fontWeight: '900',
     color: 'white',
-    marginBottom: '3%',
+    marginBottom: 16,
+    marginTop: 32,
   },
   scrollContainer: {
     flexDirection: 'row',
-    marginBottom: 1,
+    marginBottom: 8,
   },
   card: {
     borderRadius: 24,
     marginHorizontal: 12,
-    width: screenWidth * 0.3,
-    height: screenWidth * 0.3,
-    //justifyContent: 'center',
-    //alignItems: 'center',
+    width: screenWidth * 0.36,
+    height: screenWidth * 0.36,
+    backgroundColor: '#D4D4F7',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 4,
   },
   cardLabel: {
     position: 'absolute',
-    top: '5%',
-    left: '5%',
+    top: 12,
+    left: 12,
     borderRadius: 12,
-    width: '40%',
-    height: '20%',
+    width: 48,
+    height: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#4e4e91',
+    zIndex: 2,
+  },
+  cardLabelText: {
+    fontSize: 16,
+    fontWeight: '900',
+    color: 'white',
+  },
+  cardContent: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cardLabelText: {
+  cardBrandText: {
     fontSize: 18,
-    fontWeight: '900',
-    color: 'white',
+    fontWeight: '700',
+    color: '#4e4e91',
+    marginTop: 24,
   },
 });

@@ -1,6 +1,7 @@
 // api.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { router } from 'expo-router';
 import { getItemAsync, setItemAsync } from 'expo-secure-store'; // Changed import
 import { Platform } from 'react-native';
 
@@ -67,7 +68,7 @@ export const register = async (data: {email: string; password: string; name: str
   const response = await API.post(`/register`, data=data) 
     .then(async (axiosResponse) => {
       console.log('Register response status from server:', axiosResponse.statusText);
-      if (axiosResponse.statusText === 'OK') {
+      if (axiosResponse.statusText === 'Created') {
         const { access_token, token_type, userID } = axiosResponse.data;
         console.log('Register successful, token received:', access_token);
         if (Platform.OS === 'web') {
@@ -78,9 +79,9 @@ export const register = async (data: {email: string; password: string; name: str
         await setItemAsync('userToken', access_token);
         await setItemAsync('userID', userID); 
         console.log('Token saved to SecureStore:', access_token);
-    }
-        return access_token;
-      } else {
+    }      
+    router.push('/(tabs)/dashboard');
+    } else {
         console.error('Register failed with message from server:', axiosResponse.data);
         throw new Error(axiosResponse.data);
       }

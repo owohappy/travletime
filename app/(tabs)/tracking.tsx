@@ -1,4 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Svg, { Circle, Line } from 'react-native-svg';
@@ -49,9 +50,21 @@ export default function Tracking() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={toggleDrawer}>
+        <TouchableOpacity
+          onPress={() => {
+            // Handle back to dashboard
+            router.push('/(tabs)/dashboard');
+          }}>
+          <AntDesign name="arrowleft" size={24} color="white" />
+        </TouchableOpacity>
+
+        <TouchableOpacity  onPress={toggleDrawer} style={{ marginLeft: 'auto' }}>
         <AntDesign name="menu-fold" size={24} color="white" />
         </TouchableOpacity>
+
+
+        
+
       </View>
       <View style={styles.clockView}>
 
@@ -86,8 +99,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#121212',
-    paddingHorizontal: '5%',
-    paddingTop: 60,
   },
   header: {
     marginTop: 20,

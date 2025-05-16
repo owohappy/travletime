@@ -88,7 +88,7 @@ export default function Dashboard() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
       >
-        <TouchableOpacity onPress={() => router.push('/(tabs)/giftcards')}>       
+        <TouchableOpacity onPress={() => router.push('/(tabs)/overviewHours')}>       
         <View style={[styles.card, { backgroundColor: '#FFD6D6' }]}>
         <View style={[styles.cardLable, {backgroundColor: '#945050',}]}>
             <Text style={styles.cardLableText}>Overview</Text>

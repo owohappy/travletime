@@ -47,11 +47,19 @@ export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }) {
 
         <TouchableOpacity
           style={styles.drawerItem}
-          onPress={() => router.push('/(tabs)/rewards')}
+          onPress={() => router.push('/(tabs)/leaderboard')}
         >
-          <Text style={styles.drawerItemText}>Rewards</Text>
+          <Text style={styles.drawerItemText}>Leaderboard</Text>
         </TouchableOpacity>
 
+          <TouchableOpacity
+          style={[styles.drawerItem, {position: 'absolute', top: SCREEN_HEIGHT - 220 , left: 0, right: 0}]}
+          onPress={() => {
+            router.push('/(tabs)/settings');
+          }}
+        >
+          <Text style={[styles.drawerItemText]}>Settings</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.drawerItem, {position: 'absolute', top: SCREEN_HEIGHT - 150 , left: 0, right: 0}]}

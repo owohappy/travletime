@@ -1,13 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function rewardspage() {
+export default function leaderboard() {
   return (
     <View>
-      <Text>rewardspage</Text>
+      <Text>leaderboard</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({})
-

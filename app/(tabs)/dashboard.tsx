@@ -33,7 +33,7 @@ export default function Dashboard() {
     setLoading(false);
   }, []);
 
-  const { email, id: userID, email_verified, name, phonenumber, address, created_at, email_verified_at, mfa, pfp_url, points } = userData || {};
+  const { email, id: userID, email_verified, name, phonenumber, address, created_at, email_verified_at, mfa, pfp_url, hours } = userData || {};
   console.log('User data:', userData);
   console.log('User ID:', name);
   const toggleDrawer = () => {
@@ -76,8 +76,8 @@ export default function Dashboard() {
       <View style={styles.profileSection}>
         <Image style={styles.profileImage} source={{ uri: pfp_url }} />
           <Text style={styles.username}>{name}</Text>
-        <Text style={styles.pointsLabel}>Total Points</Text>
-        <Text style={styles.points}>{points} pts.</Text>
+        <Text style={styles.pointsLabel}>Total hours</Text>
+        <Text style={styles.points}>{hours}</Text>
       </View>
 
       {/* Explore Section */}
@@ -91,15 +91,15 @@ export default function Dashboard() {
         <TouchableOpacity onPress={() => router.push('/(tabs)/giftcards')}>       
         <View style={[styles.card, { backgroundColor: '#FFD6D6' }]}>
         <View style={[styles.cardLable, {backgroundColor: '#945050',}]}>
-            <Text style={styles.cardLableText}>Giftcards</Text>
+            <Text style={styles.cardLableText}>Overview</Text>
           </View>
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/(tabs)/tickets')}>       
+        <TouchableOpacity onPress={() => router.push('/(tabs)/leaderboard')}>       
         <View style={[styles.card, { backgroundColor: '#FFD6D6' }]}>
         <View style={[styles.cardLable, {backgroundColor: '#945050',}]}>
-            <Text style={styles.cardLableText}>Tickets</Text>
+            <Text style={styles.cardLableText}>Leaderboard</Text>
           </View>
         </View>
         </TouchableOpacity>

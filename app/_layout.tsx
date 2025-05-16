@@ -24,8 +24,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)/login" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)/register" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)/register_2" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)/giftcards" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)/tickets" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/settings" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)/tracking" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)/dashboard" options={{ headerShown: false, gestureEnabled: false }} />
           <Stack.Screen name="+not-found" />

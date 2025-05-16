@@ -40,7 +40,7 @@ export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }) {
 
         <TouchableOpacity
           style={styles.drawerItem}
-          onPress={() => onTask('Task 1')}
+          onPress={() => router.push('/(tabs)/dashboard')}
         >
           <Text style={styles.drawerItemText}>Dashboard</Text>
         </TouchableOpacity>

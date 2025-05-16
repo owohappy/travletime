@@ -19,7 +19,8 @@ const apiURL = 'http://localhost:8000'; // Replace with your actual API URL
 
 // VARIABLES TO CHANGE FOR API
 const pointsAmount = 1820;
-
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 export default function Dashboard() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -127,6 +128,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212',
   },
   header: {
+    marginLeft: width * 0.05,
     marginTop: 20,
     marginBottom: 10,
     flexDirection: 'row',
@@ -160,12 +162,14 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   sectionTitle: {
+    marginLeft: width * 0.05,
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 10,
   },
   scrollContainer: {
+    marginLeft: width * 0.05,
     flexDirection: 'row',
     //paddingVertical: 10,
     height: Dimensions.get('window').height * 0.36 + 20,

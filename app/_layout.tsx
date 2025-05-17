@@ -26,6 +26,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)/register_2" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)/settings" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)/tracking" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)/overviewHours" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)/dashboard" options={{ headerShown: false, gestureEnabled: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>

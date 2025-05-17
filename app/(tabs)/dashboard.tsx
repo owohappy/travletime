@@ -104,6 +104,14 @@ export default function Dashboard() {
         </View>
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => router.push('/(tabs)/leaderboard')}>       
+        <View style={[styles.card, { backgroundColor: '#FFD6D6' }]}>
+        <View style={[styles.cardLable, {backgroundColor: '#945050',}]}>
+            <Text style={styles.cardLableText}>Games</Text>
+          </View>
+        </View>
+        </TouchableOpacity>
+
       </ScrollView>
 
 
@@ -172,13 +180,13 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.05,
     flexDirection: 'row',
     //paddingVertical: 10,
-    height: Dimensions.get('window').height * 0.36 + 20,
+    height: Dimensions.get('window').height * 0.96 + 20,
     right: 10,
 
   },
   card: {
     width: 300, //Dimensions.get('window').width * 0.8,
-    height: Dimensions.get('window').height * 0.26,
+    height: Dimensions.get('window').height * 0.46,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -221,7 +229,6 @@ trackButton: {
   alignSelf: 'center',
   alignContent: 'center',
   alignItems: 'center',
-  bottom: 60,
 },
 buttonTrackIcon: {
   position: 'absolute',

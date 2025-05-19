@@ -47,6 +47,12 @@ export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }) {
 
         <TouchableOpacity
           style={styles.drawerItem}
+          onPress={() => router.push('/(tabs)/overviewHours')}
+        >
+          <Text style={styles.drawerItemText}>Overview</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.drawerItem}
           onPress={() => router.push('/(tabs)/leaderboard')}
         >
           <Text style={styles.drawerItemText}>Leaderboard</Text>

@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         borderRadius: 18,
         paddingVertical: 12,
         paddingHorizontal: 0,
-        minHeight: screenHeight * 0.5,
+        minHeight: screenHeight ,//add calc of height to seem to go thru bottom
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.18,

@@ -14,19 +14,19 @@ export default function Leaderboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Replace this with your API call
         const fetchLeaderboard = async () => {
             setLoading(true);
-            setTimeout(() => {
-                setUsers([
-                    { id: '1', name: 'Alice', points: 13.9 },
-                    { id: '2', name: 'Bob', points: 11.3 },
-                    { id: '3', name: 'Charlie', points: 10.2 },
-                    { id: '4', name: 'Diana', points: 8.3 },
-                    { id: '5', name: 'Eve', points: 6.3 },
-                ]);
+            try {
+                const response = await fetch('http://87.106.70.51:8080/stats/leaderboard');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                setUsers(data);
+            } catch (error) {
+                console.error('Failed to fetch leaderboard:', error);
+                setUsers([]);
+            } finally {
                 setLoading(false);
-            }, 1000);
+            }
         };
         fetchLeaderboard();
     }, []);

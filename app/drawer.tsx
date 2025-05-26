@@ -59,7 +59,7 @@ export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }) {
         </TouchableOpacity>
 
           <TouchableOpacity
-          style={[styles.drawerItem, {position: 'absolute', top: SCREEN_HEIGHT - 220 , left: 0, right: 0}]}
+          style={[styles.drawerItem, {position: 'absolute', top: SCREEN_HEIGHT - 270 , left: 0, right: 0}]}
           onPress={() => {
             router.push('/(tabs)/settings');
           }}
@@ -68,7 +68,7 @@ export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.drawerItem, {position: 'absolute', top: SCREEN_HEIGHT - 150 , left: 0, right: 0}]}
+          style={[styles.drawerItem, {position: 'absolute', top: SCREEN_HEIGHT - 220 , left: 0, right: 0}]}
           onPress={() => {
             logout();
             router.push('/(tabs)/login');
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     zIndex: 10,
   },
-  drawerContent: {},
+  drawerContent: { marginTop: 40},
   drawerTitle: {
     color: '#fff',
     fontSize: 22,

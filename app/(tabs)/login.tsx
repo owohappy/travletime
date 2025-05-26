@@ -97,7 +97,6 @@ const style = StyleSheet.create({
     width: '85%', // Increased width
     marginBottom: 20, // Increased margin
     borderWidth: 1,
-    borderColor: 'dimgray',
     color: 'black',
     paddingHorizontal: 15, // Increased padding
     borderRadius: 12,
@@ -108,7 +107,6 @@ const style = StyleSheet.create({
     width: '85%', // Increased width
     marginBottom: 30, // Increased margin
     borderWidth: 1,
-    borderColor: 'dimgray',
     color: 'black',
     paddingHorizontal: 15, // Increased padding
     borderRadius: 12,

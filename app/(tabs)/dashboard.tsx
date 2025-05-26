@@ -28,12 +28,13 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
 
+
   React.useEffect(() => {
     getUserData().then(data => setUserData(data));
     setLoading(false);
   }, []);
 
-  const { email, id: userID, email_verified, name, phonenumber, address, created_at, email_verified_at, mfa, pfp_url, hours } = userData || {};
+  const { email, id: userID, email_verified, name, phonenumber, address, created_at, email_verified_at, mfa, pfp_url, points } = userData || {};
   console.log('User data:', userData);
   console.log('User ID:', name);
   const toggleDrawer = () => {
@@ -77,12 +78,11 @@ export default function Dashboard() {
         <Image style={styles.profileImage} source={{ uri: pfp_url }} />
           <Text style={styles.username}>{name}</Text>
         <Text style={styles.pointsLabel}>Total hours</Text>
-        <Text style={styles.points}>{hours}</Text>
+        <Text style={styles.points}>{points} h</Text>
       </View>
 
       {/* Explore Section */}
       <Text style={styles.sectionTitle}>Explore</Text>
-      {/*Scrollview of rewards | TODO: Make this a function and fetch rewards types and Rewards from server*/}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -104,7 +104,7 @@ export default function Dashboard() {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/(tabs)/leaderboard')}>       
+        <TouchableOpacity onPress={() => console.log("TODO")}>       
         <View style={[styles.card, { backgroundColor: '#FFD6D6' }]}>
         <View style={[styles.cardLable, {backgroundColor: '#945050',}]}>
             <Text style={styles.cardLableText}>TODO</Text>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginLeft: width * 0.05,
-    marginTop: 50,
+    marginTop: 70,
     marginBottom: 10,
     flexDirection: 'row',
     justifyContent: 'flex-start',

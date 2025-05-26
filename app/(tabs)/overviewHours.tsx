@@ -1,36 +1,50 @@
 import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Dimensions,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+        Dimensions,
+        ScrollView,
+        StyleSheet,
+        Text,
+        TouchableOpacity,
+        View
 } from 'react-native';
+import { getUserData } from '../api';
+
+import { StatusBar } from 'expo-status-bar';
+
+
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 // Sample data for transportation statistics
 const transportStats = [
-        { type: 'Bus', hours: 5.3, color: '#4CAF50' },
-        { type: 'Train', hours: 12.7, color: '#2196F3' },
-        { type: 'Subway', hours: 7.2, color: '#FF9800' },
-        { type: 'Tram', hours: 3.8, color: '#9C27B0' },
-        { type: 'Ferry', hours: 0.9, color: '#00BCD4' }
+        { type: 'Bus', hours: 0, color: '#4CAF50' },
+        { type: 'Train', hours: 0, color: '#2196F3' },
+        { type: 'Subway', hours: 0, color: '#FF9800' },
+        { type: 'Tram', hours: 0, color: '#9C27B0' },
+        { type: 'Ferry', hours: 0, color: '#00BCD4' }
 ];
-
-const totalHours = transportStats.reduce((sum, item) => sum + item.hours, 0);
-const co2Saved = Math.round(totalHours * 2.3); // kg of CO2 saved (example calculation)
 
 export default function OverviewHours() {
         const router = useRouter();
-
+        const [userData, setUserData] = useState<any>(null);
+        const [loading, setLoading] = useState(true);
+        
+        React.useEffect(() => {
+          getUserData().then(data => setUserData(data));
+          setLoading(false);
+        }, []);
+        
+        const { email, id: userID, email_verified, name, phonenumber, address, created_at, email_verified_at, mfa, pfp_url, points } = userData || {};
+        
+        console.log('User data:', points);
+        
         return (
                 <View style={styles.container}>
                     {/* Header */}
+                    <StatusBar style="light" />
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => router.back()}>
                             <AntDesign name="arrowleft" size={24} color="white" />
@@ -43,11 +57,11 @@ export default function OverviewHours() {
                             <Text style={styles.summaryTitle}>Your Travel Impact</Text>
                             <View style={styles.summaryStats}>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statValue}>{totalHours.toFixed(1)}</Text>
+                                    <Text style={styles.statValue}>{points}</Text>
                                     <Text style={styles.statLabel}>Total Hours</Text>
                                 </View>
                                 <View style={styles.statBox}>
-                                    <Text style={styles.statValue}>{co2Saved}</Text>
+                                    <Text style={styles.statValue}>{points * 6}</Text>
                                     <Text style={styles.statLabel}>kg CO2 Saved</Text>
                                 </View>
                             </View>
@@ -57,7 +71,7 @@ export default function OverviewHours() {
                                         <Text style={styles.sectionTitle}>Transport Breakdown</Text>
                                         
                                         {transportStats.map((item, index) => {
-                                                const percentage = (item.hours / totalHours) * 100;
+                                                const percentage = (item.hours / points) * 100;
                                                 
                                                 return (
                                                         <View key={index} style={styles.transportRow}>
@@ -91,22 +105,22 @@ export default function OverviewHours() {
                                         <View style={styles.statsCard}>
                                                 <View style={styles.statRow}>
                                                         <AntDesign name="clockcircle" size={20} color="#38828f" />
-                                                        <Text style={styles.statInfoText}>Peak travel day: Monday</Text>
+                                                        <Text style={styles.statInfoText}>Peak travel day: N/A</Text>
                                                 </View>
                                                 
                                                 <View style={styles.statRow}>
                                                         <AntDesign name="calendar" size={20} color="#38828f" />
-                                                        <Text style={styles.statInfoText}>Most frequent: Train</Text>
+                                                        <Text style={styles.statInfoText}>Most frequent: N/A</Text>
                                                 </View>
                                                 
                                                 <View style={styles.statRow}>
                                                         <AntDesign name="linechart" size={20} color="#38828f" />
-                                                        <Text style={styles.statInfoText}>15% increase from last month</Text>
+                                                        <Text style={styles.statInfoText}>0% increase from last month</Text>
                                                 </View>
                                                 
                                                 <View style={styles.statRow}>
                                                         <AntDesign name="star" size={20} color="#38828f" />
-                                                        <Text style={styles.statInfoText}>Top 10% of eco-travelers</Text>
+                                                        <Text style={styles.statInfoText}>Top 100% of eco-travelers</Text>
                                                 </View>
                                         </View>
                                 </View>
@@ -126,7 +140,7 @@ const styles = StyleSheet.create({
                 alignItems: 'center',
                 paddingHorizontal: 20,
                 paddingVertical: 15,
-                marginTop: 10,
+                marginTop: 30,
         },
         headerTitle: {
                 color: 'white',

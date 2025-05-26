@@ -96,7 +96,7 @@ export default function Settings() {
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#121212' },
-    header: { padding: 24, alignItems: 'center', backgroundColor: '#222' },
+    header: {marginTop: 240 ,padding: 24, alignItems: 'center', backgroundColor: '#222' },
     headerText: { color: '#fff', fontSize: 24, fontWeight: 'bold' },
     form: { padding: 24 },
     input: {

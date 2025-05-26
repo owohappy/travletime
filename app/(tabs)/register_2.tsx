@@ -49,7 +49,7 @@ export default function register_2() {
         <TextInput 
             style={style.firstName}
             placeholder='First Name'
-            secureTextEntry
+            
             value={name}
             placeholderTextColor="#000"
             onChangeText={setName}
@@ -58,23 +58,13 @@ export default function register_2() {
         <TextInput 
             style={style.lastName}
             placeholder='Last Name'
-            secureTextEntry
+          
             value={lastName}
             placeholderTextColor="#000"
             onChangeText={setLastName}
         />
 
-        <TextInput
-        style={[style.input, error ? style.inputError : null]}
-        value={phonenumber}
-        onChangeText={handlePhoneChange}
-        placeholderTextColor="#000"
-        placeholder="+1234567890"
-        keyboardType="phone-pad"
-        maxLength={20}
-      />
-
-        <Button style={style.loginButton} onPress={() => register({ email: email as string, password: password as string, name: String(name + " " + lastName), phonenumber, address})}>
+        <Button style={style.loginButton} onPress={() => register({ email: email as string, password: password as string, name: String(name + " " + lastName), phonenumber: "test", address})}>
         Register
         </Button>
         <Text style={style.registerTextButton} onPress={() => router.push('/(tabs)/login')}> 
@@ -121,7 +111,7 @@ const style = StyleSheet.create({
     width: 140,
     margin: 48,
     marginLeft: screenWidth / 8,
-    marginTop: screenHeight / 5,
+    marginTop: screenHeight / 4,
     position: 'absolute',
     borderWidth: 1, 
     borderColor: 'dimgray',
@@ -131,7 +121,7 @@ const style = StyleSheet.create({
   },
   lastName: {
     marginLeft: screenWidth / 2,
-    marginTop: screenHeight / 5,
+    marginTop: screenHeight / 4,
     position: 'absolute',
     height: 40,
     margin: 48,
@@ -153,9 +143,9 @@ const style = StyleSheet.create({
     fontWeight: '900'
   },
   phoneInput: {
-    marginTop: screenHeight / 4.5,
+    top: screenHeight ,
     marginLeft: screenWidth / 6,
-    position: 'absolute',
+    position: 'relative',
     height: 40,
     borderWidth: 1, 
     borderColor: 'dimgray',

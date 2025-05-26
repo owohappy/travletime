@@ -21,7 +21,7 @@ export const login = async (data: {email: string; password: string}) => {
     .then(async (axiosResponse) => {
       const responseJson = axiosResponse.data.access_token;
       console.log('Login response status from server:', axiosResponse.statusText);
-      if (axiosResponse.statusText === 'OK') {
+      if (axiosResponse.status === 200 || axiosResponse.statusText === 'OK') {
         const { access_token, token_type, userID } = axiosResponse.data;
         console.log('Login successful, token received:', access_token);
         if (Platform.OS === 'web') {
@@ -29,9 +29,11 @@ export const login = async (data: {email: string; password: string}) => {
           await AsyncStorage.setItem('userID', userID);
     
         } else {
-        await setItemAsync('userToken', access_token);
-        await setItemAsync('userID', userID); 
+        console.log(axiosResponse.statusText)
+        await setItemAsync('userToken', JSON.stringify(access_token));
+        await setItemAsync('userID', JSON.stringify(userID)); 
         console.log('Token saved to SecureStore:', access_token);
+        console.log('UserID (integer) saved to SecureStore:', userID);
     }
         return access_token;
       } else {
@@ -67,8 +69,9 @@ export const register = async (data: {email: string; password: string; name: str
   console.log('Registering user with data:', data.email);
   const response = await API.post(`/register`, data=data) 
     .then(async (axiosResponse) => {
-      console.log('Register response status from server:', axiosResponse.statusText);
-      if (axiosResponse.statusText === 'Created') {
+      
+      console.log('Register response status from server:', axiosResponse.status);
+      if (axiosResponse.status === 201 || axiosResponse.statusText === 'Created') {
         const { access_token, token_type, userID } = axiosResponse.data;
         console.log('Register successful, token received:', access_token);
         if (Platform.OS === 'web') {
@@ -76,8 +79,8 @@ export const register = async (data: {email: string; password: string; name: str
           await AsyncStorage.setItem('userID', userID);
     
         } else {
-        await setItemAsync('userToken', access_token);
-        await setItemAsync('userID', userID); 
+        await setItemAsync('userToken', JSON.stringify(access_token));
+        await setItemAsync('userID', JSON.stringify(userID)); 
         console.log('Token saved to SecureStore:', access_token);
     }      
     router.push('/(tabs)/dashboard');
@@ -106,7 +109,8 @@ export const getUserData = async () => {
       userID = await AsyncStorage.getItem('userID');
     } else {
       token = await getItemAsync('userToken');
-      userID = await getItemAsync('userID');
+      const userIDString = await getItemAsync('userID');
+      userID = userIDString ? JSON.parse(userIDString) : null;
     }
     console.log('Token and userID retrieved:', token, userID);
     if (!token) {
@@ -143,11 +147,13 @@ export const getUserData = async () => {
 export const checkToken = async (): Promise<boolean> => {
   console.log('Checking token...');
   let token;
+  let userid;
   try {
     if (Platform.OS === 'web') {
       token = await AsyncStorage.getItem('userToken');
     } else {
       token = await getItemAsync('userToken');
+      userid = await getItemAsync('userID');
     }
 
     if (!token) {
@@ -164,7 +170,7 @@ export const checkToken = async (): Promise<boolean> => {
       {
         params: {
           access_token: token,
-          userID: "0000" // Sending access_token as a query parameter
+          userID: userid // Sending access_token as a query parameter
         }
       }
     );

@@ -67,8 +67,8 @@ export default function Dashboard() {
 
 
       <View style={styles.header}>
-        <TouchableOpacity onPress={toggleDrawer}>
-        <AntDesign name="menu-fold" size={24} color="white" />
+        <TouchableOpacity style={{ paddingLeft: 20 }} onPress={toggleDrawer}>
+          <AntDesign name="menu-fold" size={24} color="white" />
         </TouchableOpacity>
       </View>
 
@@ -107,7 +107,7 @@ export default function Dashboard() {
         <TouchableOpacity onPress={() => router.push('/(tabs)/leaderboard')}>       
         <View style={[styles.card, { backgroundColor: '#FFD6D6' }]}>
         <View style={[styles.cardLable, {backgroundColor: '#945050',}]}>
-            <Text style={styles.cardLableText}>Games</Text>
+            <Text style={styles.cardLableText}>TODO</Text>
           </View>
         </View>
         </TouchableOpacity>
@@ -115,11 +115,6 @@ export default function Dashboard() {
       </ScrollView>
 
 
-      <TouchableOpacity onPress={() => router.push('/(tabs)/tracking')}>
-        <View style={styles.trackButton}>
-          <AntDesign stlye={styles.buttonTrackIcon} name="arrowright" size={24} color="white" />
-        </View>
-      </TouchableOpacity>
 
           <SimpleDrawer
         isOpen={drawerOpen}
@@ -137,7 +132,7 @@ const styles = StyleSheet.create({
   },
   header: {
     marginLeft: width * 0.05,
-    marginTop: 20,
+    marginTop: 50,
     marginBottom: 10,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -180,7 +175,7 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.05,
     flexDirection: 'row',
     //paddingVertical: 10,
-    height: Dimensions.get('window').height * 0.96 + 20,
+    height: Dimensions.get('window').height * 0.46 + 20,
     right: 10,
 
   },

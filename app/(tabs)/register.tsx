@@ -108,7 +108,6 @@ const style = StyleSheet.create({
     color: 'black',
     padding: 12,
     borderRadius: 12
-
   },
   loginButton: {
     alignSelf: 'center'

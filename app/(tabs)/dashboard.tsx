@@ -2,20 +2,20 @@ import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Dimensions,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 
 import { getUserData } from '../api';
 import SimpleDrawer from '../drawer';
 
 const router = useRouter();
-const apiURL = 'http://localhost:8000'; // Replace with your actual API URL
+const apiURL = 'https://localhost:8000'; // Replace with your actual API URL
 
 // VARIABLES TO CHANGE FOR API
 const pointsAmount = 1820;
@@ -75,10 +75,13 @@ export default function Dashboard() {
 
       {/* Profile Section */}
       <View style={styles.profileSection}>
-        <Image style={styles.profileImage} source={{ uri: pfp_url }} />
-          <Text style={styles.username}>{name}</Text>
+        <Image 
+          style={styles.profileImage} 
+          source={userID ? { uri: `https://87.106.70.51:8080/misc/templates/pfp/${userID}.jpg` } : { uri: `https://87.106.70.51:8080/misc/templates/pfp/${userID}.jpg` } }
+        />
+        <Text style={styles.username}>{name || 'Loading...'}</Text>
         <Text style={styles.pointsLabel}>Total hours</Text>
-        <Text style={styles.points}>{points} h</Text>
+        <Text style={styles.points}>{points || 0} h</Text>
       </View>
 
       {/* Explore Section */}

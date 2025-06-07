@@ -3,20 +3,80 @@ import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Button, Image, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { getUserData } from '../api'; // Adjust the import path as necessary
 import SimpleDrawer from '../drawer';
 // Placeholder API call
-const updateProfile = async (data: FormData) => {
-    // Simulating API call with FormData that contains the image file
-    // In a real app, you would use fetch or axios here
-    return new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+
+const updateProfile = async (data: FormData, userid: string, imageUri: string | null = null) => {
+    console.log('Updating profile with data:', userid);
+    const access_token = await getUserData().then(data => data.access_token);
+    
+    // Update profile data
+    try {
+         if (imageUri) {
+            const imageFormData = new FormData();
+            const fileName = `profile_${Date.now()}.jpg`;
+            
+            // Create a Blob from the image URI
+            const response = await fetch(imageUri);
+            const blob = await response.blob();
+            
+            imageFormData.append('file', blob, fileName);
+            
+            const imageResponse = await fetch(`https://87.106.70.51:8080/user/${userid}/updatePicture?access_token=${access_token}`, {
+                method: 'POST',
+                // Don't set Content-Type manually for FormData
+                // The fetch API will add the boundary parameter automatically
+                body: imageFormData,
+            });
+            
+            if (!imageResponse.ok) {
+                throw new Error('Failed to upload profile image');
+            }
+            
+            return imageResponse.json();
+        }
+        const response = await fetch(`https://87.106.70.51:8080/user/${userid}/updateData?access_token=${access_token}&userID=${userid}`, {
+            method: 'POST',
+            headers: {
+                'field': 'name',
+                'data': 'Lucas Roeder',
+            },
+            body: data,
+        });
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        await response.json();
+        
+        // Update profile image if provided
+       
+        
+        return { success: true };
+    } catch (error) {
+        console.error('Profile update error:', error);
+        throw error;
+    }
 };
 
 export default function Settings() {
+    const [userData, setUserData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    
+    React.useEffect(() => {
+      getUserData().then(data => setUserData(data));
+      setLoading(false);
+    }, []);
+    
+    const { emailorg, id: userID, email_verified, nameorg, phonenumberorg, address, created_at, email_verified_at, mfa, pfp_url, points } = userData || {};
+        
     const [name, setName] = useState('');
     const [phonenumber, setPhonenumber] = useState('');
     const [email, setEmail] = useState('');
-    const [loading, setLoading] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [image, setImage] = useState<string | null>(null);
     
     const toggleDrawer = () => {
         setDrawerOpen((prev: boolean) => !prev);
@@ -24,56 +84,41 @@ export default function Settings() {
     
     const handleUpdate = async () => {
         setLoading(true);
+        
         try {
-            // Create FormData object to handle the file upload
             const formData = new FormData();
-            formData.append('name', name);
-            formData.append('phonenumber', phonenumber);
-            formData.append('email', email);
             
-            // Add image file to FormData if it exists
-            if (image) {
-                // Get file info from the URI
-                const fileInfo = await fetch(image).then(res => res.blob());
-                
-                // Create a file name (you may want to extract the actual extension)
-                const fileName = `profile_${Date.now()}.jpg`;
-                
-                // Append file to form data
-                formData.append('profileImage', {
-                    uri: image,
-                    name: fileName,
-                    type: 'image/jpeg', // Adjust based on your image type
-                } as any);
-            }
+            // Add profile data to formData if needed
+            if (name) formData.append('name', name);
+            if (phonenumber) formData.append('phonenumber', phonenumber);
+            if (email) formData.append('email', email);
             
-            // Send the form data to the API
-            await updateProfile(formData);
-                    Alert.alert('Success', 'Profile updated with new image!');
-                } catch (error) {
-                    console.error('Update error:', error);
-                    Alert.alert('Error', 'Failed to update profile.');
-                } finally {
-                    setLoading(false);
-                }
-            };
-
-    const router = useRouter();
+            // Call updateProfile with both data and image
+            await updateProfile(formData, userID, image);
+            
+            Alert.alert('Success', 'Profile updated successfully!');
+        } catch (error) {
+            console.error('Update error:', error);
+            Alert.alert('Error', 'Failed to update profile.');
+        } finally {
+            setLoading(false);
+        }
+    };
     
-                    const [image, setImage] = useState<string | null>(null);
+    const router = useRouter();
 
-                const pickImage = async () => {
-                    let result = await ImagePicker.launchImageLibraryAsync({
-                        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                        allowsEditing: true,
-                        aspect: [1, 1],
-                        quality: 0.8,
-                    });
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 0.8,
+        });
 
-                    if (!result.canceled) {
-                        setImage(result.assets[0].uri);
-                    }
-                };
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
+    };
                 
     return (
         <KeyboardAvoidingView
@@ -190,6 +235,11 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 2,
         borderColor: '#8c8c8c',
+    },
+    profilePicButton: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
     },
     placeholderContainer: {
         alignItems: 'center',

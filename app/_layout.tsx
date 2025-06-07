@@ -1,16 +1,23 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
+import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import 'react-native-reanimated';
+import 'react-native-reanimat';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { startLocationTracking } from './services/LocationService';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+
+  useEffect(() => {
+    // Start location tracking when the app loads
+    startLocationTracking();
+  }, []);
 
   if (!loaded) {
     return null;

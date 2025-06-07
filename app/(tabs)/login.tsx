@@ -100,7 +100,6 @@ const style = StyleSheet.create({
     color: 'black',
     paddingHorizontal: 15, // Increased padding
     borderRadius: 12,
-    backgroundColor: '#f0f0f0',
   },
   password: {
     height: 45, // Slightly increased height
@@ -110,7 +109,6 @@ const style = StyleSheet.create({
     color: 'black',
     paddingHorizontal: 15, // Increased padding
     borderRadius: 12,
-    backgroundColor: '#f0f0f0',
   },
   loginButton: {
     backgroundColor: '#38828f', // Example button color

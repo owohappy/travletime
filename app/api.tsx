@@ -6,7 +6,7 @@ import { getItemAsync, setItemAsync } from 'expo-secure-store'; // Changed impor
 import { Platform } from 'react-native';
 
 const API = axios.create({
-  baseURL: 'http://87.106.70.51:8080/',
+  baseURL: 'https://87.106.70.51:8080/',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

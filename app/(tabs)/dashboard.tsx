@@ -77,7 +77,7 @@ export default function Dashboard() {
       <View style={styles.profileSection}>
         <Image 
           style={styles.profileImage} 
-          source={userID ? { uri: `https://87.106.70.51:8080/misc/templates/pfp/${userID}.jpg` } : { uri: `https://87.106.70.51:8080/misc/templates/pfp/${userID}.jpg` } }
+          source={userID ? { uri: `none.jpg` } : { uri: `https://tt.owohappy.com:8080/misc/templates/pfp/${userID}.jpg` } }
         />
         <Text style={styles.username}>{name || 'Loading...'}</Text>
         <Text style={styles.pointsLabel}>Total hours</Text>

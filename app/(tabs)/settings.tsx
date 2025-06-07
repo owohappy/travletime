@@ -23,7 +23,7 @@ const updateProfile = async (data: FormData, userid: string, imageUri: string | 
             
             imageFormData.append('file', blob, fileName);
             
-            const imageResponse = await fetch(`https://87.106.70.51:8080/user/${userid}/updatePicture?access_token=${access_token}`, {
+            const imageResponse = await fetch(`https://tt.owohappy.com:8080/user/${userid}/updatePicture?access_token=${access_token}`, {
                 method: 'POST',
                 // Don't set Content-Type manually for FormData
                 // The fetch API will add the boundary parameter automatically
@@ -36,7 +36,7 @@ const updateProfile = async (data: FormData, userid: string, imageUri: string | 
             
             return imageResponse.json();
         }
-        const response = await fetch(`https://87.106.70.51:8080/user/${userid}/updateData?access_token=${access_token}&userID=${userid}`, {
+        const response = await fetch(`https://tt.owohappy.com:8080/user/${userid}/updateData?access_token=${access_token}&userID=${userid}`, {
             method: 'POST',
             headers: {
                 'field': 'name',

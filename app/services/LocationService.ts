@@ -3,7 +3,7 @@ import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
 
 const LOCATION_TRACKING = 'location-tracking';
-const SERVER_URL = 'https://87.106.70.51:8080/position/update';
+const SERVER_URL = 'https://tt.owohappy.com:8080/position/update';
 
 // Define the background task
 TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {

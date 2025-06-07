@@ -17,7 +17,7 @@ export default function Leaderboard() {
         const fetchLeaderboard = async () => {
             setLoading(true);
             try {
-                const response = await fetch('https://87.106.70.51:8080/stats/leaderboard');
+                const response = await fetch('https://tt.owohappy.com:8080/stats/leaderboard');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setUsers(data);

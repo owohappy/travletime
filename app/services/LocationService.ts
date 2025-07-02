@@ -14,7 +14,7 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
   
   if (data) {
     // Check if user is logged in
-    const authToken = await AsyncStorage.getItem('authToken');
+    const authToken = await AsyncStorage.getItem('userToken');
     if (!authToken) {
       console.log('User not logged in, skipping position update');
       return;
@@ -36,7 +36,7 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             timestamp: new Date().toISOString(),
-            userId: await AsyncStorage.getItem('userId'),
+            userId: await AsyncStorage.getItem('userID'),
           }),
         });
         console.log('Position sent to server successfully');
@@ -51,7 +51,7 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
 export const startLocationTracking = async () => {
   try {
     // Check if user is logged in before requesting permissions
-    const authToken = await AsyncStorage.getItem('authToken');
+    const authToken = await AsyncStorage.getItem('userToken');
     if (!authToken) {
       console.log('User not logged in, not starting location tracking');
       return false;

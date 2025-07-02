@@ -2,23 +2,20 @@ import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-    Dimensions,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 import { getUserData } from '../api';
 import SimpleDrawer from '../drawer';
 
 const router = useRouter();
-const apiURL = 'https://localhost:8000'; // Replace with your actual API URL
 
-// VARIABLES TO CHANGE FOR API
-const pointsAmount = 1820;
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
@@ -35,8 +32,7 @@ export default function Dashboard() {
   }, []);
 
   const { email, id: userID, email_verified, name, phonenumber, address, created_at, email_verified_at, mfa, pfp_url, points } = userData || {};
-  console.log('User data:', userData);
-  console.log('User ID:', name);
+  console.log('User data:', userData, 'User ID:', userID, 'Points:', points);
   const toggleDrawer = () => {
     setDrawerOpen((prev: boolean) => !prev);
   };
@@ -46,6 +42,7 @@ export default function Dashboard() {
   }
 
   const handleTask: TaskHandler = () => {
+    router.push('/(tabs)/tracking');
   };
 
   if (loading) {
@@ -77,7 +74,7 @@ export default function Dashboard() {
       <View style={styles.profileSection}>
         <Image 
           style={styles.profileImage} 
-          source={userID ? { uri: `none.jpg` } : { uri: `https://tt.owohappy.com:8080/misc/templates/pfp/${userID}.jpg` } }
+          source={pfp_url ? { uri: pfp_url } : userID ? { uri: `https://tt.owohappy.com:8080/misc/templates/pfp/${userID}.jpg` } : require('../../assets/images/icon.png')}
         />
         <Text style={styles.username}>{name || 'Loading...'}</Text>
         <Text style={styles.pointsLabel}>Total hours</Text>
@@ -107,10 +104,10 @@ export default function Dashboard() {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => console.log("TODO")}>       
-        <View style={[styles.card, { backgroundColor: '#FFD6D6' }]}>
-        <View style={[styles.cardLable, {backgroundColor: '#945050',}]}>
-            <Text style={styles.cardLableText}>TODO</Text>
+        <TouchableOpacity onPress={() => router.push('/(tabs)/games')}>       
+        <View style={[styles.card, { backgroundColor: '#D6FFD6' }]}>
+        <View style={[styles.cardLable, {backgroundColor: '#4CAF50',}]}>
+            <Text style={styles.cardLableText}>Games & Challenges</Text>
           </View>
         </View>
         </TouchableOpacity>

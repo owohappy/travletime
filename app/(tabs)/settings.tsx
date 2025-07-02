@@ -141,9 +141,14 @@ export default function Settings() {
                     <TouchableOpacity onPress={pickImage} style={styles.profilePicButton}>
                         {image ? (
                             <Image source={{ uri: image }} style={styles.profilePic} />
+                        ) : pfp_url ? (
+                            <Image source={{ uri: pfp_url }} style={styles.profilePic} />
+                        ) : userID ? (
+                            <Image source={{ uri: `https://tt.owohappy.com:8080/misc/templates/pfp/${userID}.jpg` }} style={styles.profilePic} />
                         ) : (
                             <View style={styles.placeholderContainer}>
                                 <AntDesign name="user" size={40} color="#888" />
+                                <Text style={styles.uploadText}>Tap to upload</Text>
                             </View>
                         )}
                     </TouchableOpacity>
@@ -251,5 +256,10 @@ const styles = StyleSheet.create({
         borderColor: '#8c8c8c',
         backgroundColor: '#222',
     },
-
+    uploadText: {
+        color: '#888',
+        fontSize: 10,
+        marginTop: 4,
+        textAlign: 'center',
+    },
 });

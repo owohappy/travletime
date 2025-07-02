@@ -18,6 +18,8 @@ Notifications.setNotificationHandler({
     shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
   }),
 });
 
@@ -59,16 +61,19 @@ export const scheduleDailyMotivation = async () => {
   
   // Schedule for next 7 days
   for (let i = 1; i <= 7; i++) {
-    const trigger = new Date();
-    trigger.setDate(trigger.getDate() + i);
-    trigger.setHours(8, 0, 0, 0); // 8 AM
+    const triggerDate = new Date();
+    triggerDate.setDate(triggerDate.getDate() + i);
+    triggerDate.setHours(8, 0, 0, 0); // 8 AM
     
     await Notifications.scheduleNotificationAsync({
       content: {
         title: 'TravleTime 🚊',
         body: motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)],
       },
-      trigger,
+      trigger: { 
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: i * 24 * 60 * 60 
+      }, // i days in seconds
     });
   }
 };

@@ -1,4 +1,3 @@
-import { AntDesign } from '@expo/vector-icons';
 import { Button } from '@react-navigation/elements';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -6,10 +5,9 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { checkToken } from '../api';
 
 const screenHeight = Dimensions.get('window').height;
-const router = useRouter();
-
-
-export default function index() {
+export default function Index() {
+  const router = useRouter();
+  
   React.useEffect(() => {
     const verifyToken = async () => {
       const tokenValid = await checkToken();
@@ -18,14 +16,14 @@ export default function index() {
       }
     };
     verifyToken();
-  }, []);
+  }, [router]);
   return (
     <View style={style.container}>
       <View style={style.boxForground}> 
-        <Text style={style.welcomeText}>Don't waste time</Text>
+        <Text style={style.welcomeText}>Don&apos;t waste time</Text>
         <Text style={style.bottomText}>Earn points whilest being on any means of public transport </Text>
-        <Button style={style.continueButton} onPress={() => router.push('/(tabs)/register')}> 
-         <AntDesign name="arrowright" style={style.arrowButton} />
+        <Button style={style.continueButton} onPress={() => router.push('/(tabs)/register')}>
+          Continue
         </Button>
       </View>
 

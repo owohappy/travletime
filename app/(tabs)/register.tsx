@@ -43,7 +43,9 @@ export default function Register() {
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => router.push({ pathname: '/(tabs)/register_2', params: { email, password } })}
-          />
+          >
+            Continue
+          </Button>
         </View>
         
         <Text style={styles.registerTextButton} onPress={() => router.push('/(tabs)/login')}> 

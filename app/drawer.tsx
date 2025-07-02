@@ -2,20 +2,25 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
-  Animated,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Animated,
+    Dimensions,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { logout } from './api';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-const router = useRouter();
+interface DrawerProps {
+  isOpen: boolean;
+  toggleDrawer: () => void;
+  onTask: (task: string) => void;
+}
 
-export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }) {
+export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }: DrawerProps) {
+  const router = useRouter();
   const drawerAnim = React.useRef(new Animated.Value(-SCREEN_WIDTH)).current;
 
   React.useEffect(() => {
@@ -24,7 +29,7 @@ export default function SimpleDrawer({ isOpen, toggleDrawer, onTask }) {
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }, [isOpen]);
+  }, [isOpen, drawerAnim]);
 
   return (
     <Animated.View

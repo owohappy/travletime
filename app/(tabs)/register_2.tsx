@@ -8,11 +8,8 @@ import { register } from '../api'
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const address = "none";
-const router = useRouter();
-
-
-export default function register_2() {
-    
+export default function Register2() {
+    const router = useRouter();
     const { email, password } = useLocalSearchParams();
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');

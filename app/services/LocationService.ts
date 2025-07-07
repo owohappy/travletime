@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
+import { apiClient } from '../api/client';
+import { GPS_CONFIG } from '../config/api';
 
 const LOCATION_TRACKING = 'location-tracking';
-const SERVER_URL = 'https://tt.owohappy.com:8080/position/update';
 
 // Define the background task
 TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
@@ -25,9 +26,25 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
     
     if (location) {
       try {
-        // Send location to your server
-        await fetch(SERVER_URL, {
-          method: 'POST',
+        // Send location to server using the new API client
+        const locationData = {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          accuracy: location.coords.accuracy,
+          altitude: location.coords.altitude,
+          speed: location.coords.speed,
+          bearing: location.coords.heading,
+          timestamp: new Date(location.timestamp).toISOString(),
+        };
+        
+        await apiClient.trackLocation(locationData);
+        console.log('Location sent successfully:', locationData);
+      } catch (error) {
+        console.error('Failed to send location:', error);
+      }
+    }
+  }
+});
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${authToken}`,
